@@ -20,34 +20,89 @@ class MessageGenerator:
     def generate_subject(self, lead: Lead, campaign_project: str) -> str:
         """Generate personalized email subject line"""
         prompt = f"""
-Generate a personalized email subject line for a follow-up email to {lead.lead_name} about {campaign_project}.
+Generate a SINGLE, concise email subject line for a follow-up email to {lead.lead_name} about {campaign_project}.
 
 Lead Information:
 - Name: {lead.lead_name}
 - Unit Type Preference: {lead.unit_type or 'Not specified'}
 - Previous Project Interest: {lead.project_name or 'None'}
 
-Requirements:
-- Keep it concise (under 60 characters if possible)
+CRITICAL REQUIREMENTS:
+- Generate ONLY ONE subject line (not multiple options)
+- Maximum 60 characters
+- Single line only (no line breaks, no bullet points, no asterisks)
 - Make it personal and engaging
-- Reference the project name
+- Reference the project name: {campaign_project}
+- Include the lead's first name: {lead.lead_name.split()[0]}
 - Create interest/urgency
-- Do NOT include "Subject:" prefix, just the subject line text
+- Do NOT include "Subject:" prefix
+- Do NOT include multiple options separated by asterisks (*) or bullets
+- Do NOT include explanatory text like "Here are a few options" or "playing with different angles"
+- Output ONLY the subject line text, nothing else
 
-Example format: "Revisiting [Project Name]: [Personalized Appeal], [Name Title]"
+Good examples:
+- "{lead.lead_name.split()[0]}, {campaign_project}: Your Dream Home Awaits"
+- "{campaign_project}: Exclusive Update for {lead.lead_name.split()[0]}"
+- "{lead.lead_name.split()[0]}, Don't Miss {campaign_project} Opportunity"
+
+Bad examples (DO NOT generate these):
+- "Here are a few options: * Option 1 * Option 2"
+- Multiple lines or bullet points
+- Explanatory text before the subject
 """
         try:
             response = self.llm.invoke(prompt)
             subject = response.content.strip()
+            
             # Remove "Subject:" if LLM added it
             if subject.startswith("Subject:"):
                 subject = subject.replace("Subject:", "").strip()
+            
             # Remove quotes if present
             subject = subject.strip('"').strip("'")
+            
+            # Remove any explanatory text before the actual subject
+            if "Here are" in subject or "options" in subject.lower() or "playing with" in subject.lower():
+                # Try to extract just the subject line after colons or before asterisks
+                if ":" in subject:
+                    # Take everything after the last colon
+                    parts = subject.split(":")
+                    if len(parts) > 1:
+                        # Get the last part and clean it
+                        subject = parts[-1].strip()
+            
+            # Remove asterisks, bullet points, and multiple options
+            # Split by asterisks or bullets and take the first clean option
+            if "*" in subject or "•" in subject or "- " in subject:
+                # Split by common separators
+                parts = re.split(r'[*•]', subject)
+                if parts:
+                    # Take the first non-empty part
+                    subject = parts[0].strip()
+                    # Clean up any remaining markers
+                    subject = re.sub(r'^\s*[-*•]\s*', '', subject)
+            
+            # Remove any line breaks and keep only first line
+            subject = subject.split('\n')[0].strip()
+            
+            # Remove any remaining explanatory text patterns
+            subject = re.sub(r'^.*?(?:options|angles|here are|playing with).*?:', '', subject, flags=re.IGNORECASE)
+            subject = subject.strip()
+            
+            # Ensure it's not empty and has reasonable length
+            if not subject or len(subject) > 100:
+                # Fallback to a simple, clean subject
+                first_name = lead.lead_name.split()[0]
+                return f"{first_name}, {campaign_project}: Your Opportunity Awaits"
+            
+            # Final cleanup: remove any leading/trailing punctuation issues
+            subject = subject.strip(' *•-')
+            
             return subject
         except Exception as e:
             # Fallback subject
-            return f"Revisiting {campaign_project}: An Opportunity Tailored for You, {lead.lead_name.split()[0]}"
+            first_name = lead.lead_name.split()[0]
+            return f"{first_name}, {campaign_project}: Your Opportunity Awaits"
     
     def generate_message(self, lead: Lead, campaign_project: str, sales_offer: Optional[str] = None) -> str:
         """Generate personalized message for a lead"""
