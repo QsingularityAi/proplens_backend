@@ -5,8 +5,8 @@ services:
     env: python
     region: oregon
     plan: free
-    buildCommand: pip install -r requirements.txt && python manage.py migrate
-    startCommand: gunicorn proplens_ai.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --timeout 120
+    buildCommand: uv sync --no-dev && uv run python manage.py migrate
+    startCommand: uv run gunicorn proplens_ai.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --timeout 120
     envVars:
       - key: SECRET_KEY
         generateValue: true
