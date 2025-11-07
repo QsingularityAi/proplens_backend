@@ -35,7 +35,7 @@ django-ses==3.5.0
 sendgrid==6.11.0
 
 # Utilities
-python-dotenv==1.0.0
+python-dotenv>=1.1.1,<2.0.0
 pandas==2.1.4
 numpy==1.26.3
 
