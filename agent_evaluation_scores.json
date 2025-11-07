@@ -1,0 +1,14 @@
+[
+  {
+    "input": "What are the facilities and amenities in Lumina Grand?",
+    "error": "'context' must be None or a list of strings"
+  },
+  {
+    "input": "How many leads have status 'connected'?",
+    "error": "'context' must be None or a list of strings"
+  },
+  {
+    "input": "Tell me about the project features",
+    "error": "'context' must be None or a list of strings"
+  }
+]

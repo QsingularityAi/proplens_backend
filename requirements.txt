@@ -1,0 +1,52 @@
+# Django and Django Ninja
+django==4.2.7
+django-ninja==1.0.0
+django-cors-headers==4.3.1
+djangorestframework==3.14.0
+
+# Database
+psycopg2-binary==2.9.9
+sqlite3
+
+# LangGraph and LangChain
+langgraph==0.0.40
+langchain>=0.1.20
+langchain-community>=0.0.20
+langchain-core>=0.1.46,<0.2.0
+
+# Vector Store and Embeddings
+chromadb==0.4.22
+sentence-transformers>=2.3.0
+google-generativeai==0.3.2
+
+# Text-to-SQL
+vanna==0.4.0
+
+# PDF Processing
+pypdf==3.17.4
+pdfplumber==0.10.3
+
+# Authentication
+PyJWT==2.8.0
+djangorestframework-simplejwt==5.3.0
+
+# Email
+django-ses==3.5.0
+sendgrid==6.11.0
+
+# Utilities
+python-dotenv==1.0.0
+pandas==2.1.4
+numpy==1.26.3
+
+# Testing
+pytest==7.4.3
+pytest-django==4.7.0
+pytest-asyncio==0.21.1
+deepeval>=3.7.0
+
+# Other
+setuptools>=65.0.0
+uvicorn==0.24.0
+gunicorn==21.2.0
+

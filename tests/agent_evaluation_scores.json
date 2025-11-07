@@ -1,0 +1,49 @@
+{
+  "summary": {
+    "total_test_cases": 3,
+    "successful_evaluations": 3,
+    "failed_evaluations": 0,
+    "average_answer_relevancy_score": 1.0,
+    "average_faithfulness_score": 1.0,
+    "answer_relevancy_passed_count": 3,
+    "faithfulness_passed_count": 3
+  },
+  "detailed_results": [
+    {
+      "input": "What are the facilities and amenities in Lumina Grand?",
+      "actual_output": "Based on the information provided, here are the facilities and amenities you can find at Lumina Grand:\n\n**Recreational and Social Facilities:**\n*   **50m Lap Pool** for swimming.\n*   A **Gymnasium** for workouts.\n*   **Tennis Court** for sports.\n*   **BBQ Pavilion** for entertaining friends.\n*   A **Reading Lounge** for quiet downtime.\n*   **Residents' Dance Room** for activities.\n\n**Family and Pet-Friendly Areas:**\n*   A dedicated **Kids Play zone** for children.\n*   A **Pets Play area** for yo",
+      "expected_output": "Information about Lumina Grand facilities and amenities including pools, gyms, playgrounds, and other recreational facilities",
+      "context_type": "rag",
+      "context_used": "a sweat at the Gymnasium or getting some downtime in the \nReading Lounge, you can be assured that our facilities are as \neco-friendly as they are luxurious.\nArtist’s impression\nWHERE THE SUN \nLIGHTS U",
+      "answer_relevancy_score": 1.0,
+      "faithfulness_score": 1.0,
+      "answer_relevancy_passed": true,
+      "faithfulness_passed": true,
+      "evaluation_model": "gemini-2.5-pro"
+    },
+    {
+      "input": "How many leads have status 'connected'?",
+      "actual_output": "The query returned 28 result(s).",
+      "expected_output": "A count of leads with connected status from the CRM database",
+      "context_type": "t2sql",
+      "context_used": "CRM database containing leads table with status field",
+      "answer_relevancy_score": 1.0,
+      "faithfulness_score": 1.0,
+      "answer_relevancy_passed": true,
+      "faithfulness_passed": true,
+      "evaluation_model": "gemini-2.5-pro"
+    },
+    {
+      "input": "Tell me about the project features of Sobha Crest",
+      "actual_output": "Based on the information provided, here are the key project features of Sobha Crest:\n\n**Architectural & Design Features:**\n*   **Three Inter-connected Towers:** The project consists of three expansive residential towers. Tower A has residences spread across 46 floors.\n*   **Inter-linked Sky Gardens:** The three towers are connected by a series of stepped Sky Gardens.\n*   **Skywalk:** An inter-linked skywalk also brings all three towers together.\n\n**Location & Setting:**\n*   **Crystal Lagoon:** T",
+      "expected_output": "Information about Sobha Crest project features, amenities, and specifications",
+      "context_type": "rag",
+      "context_used": "now have a name\n*Images used for representative purpose only\nResidential towers with inter-linked Sky Gardens\nnow have a name\n*Images used for representative purpose only\nExperiential community living",
+      "answer_relevancy_score": 1.0,
+      "faithfulness_score": 1.0,
+      "answer_relevancy_passed": true,
+      "faithfulness_passed": true,
+      "evaluation_model": "gemini-2.5-pro"
+    }
+  ]
+}
