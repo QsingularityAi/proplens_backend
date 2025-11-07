@@ -5,7 +5,7 @@ services:
     env: python
     region: oregon
     plan: free
-    buildCommand: uv sync --no-dev && uv run python manage.py migrate
+    buildCommand: uv sync --no-dev && uv run python manage.py migrate --noinput && uv run python manage.py create_superuser || true
     startCommand: .venv/bin/gunicorn proplens_ai.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --timeout 120
     envVars:
       - key: SECRET_KEY
