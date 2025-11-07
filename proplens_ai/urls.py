@@ -3,6 +3,7 @@ URL configuration for proplens_ai project.
 """
 from django.contrib import admin
 from django.urls import path
+from django.http import JsonResponse
 from django.conf import settings
 from django.conf.urls.static import static
 from ninja import NinjaAPI
@@ -24,7 +25,19 @@ api.add_router("/campaigns", campaign_router)
 api.add_router("/agents", agent_router)
 api.add_router("/agents", settings_router)  # Settings endpoints
 
+
+def health_check(request):
+    """Health check endpoint for Render and monitoring"""
+    return JsonResponse({
+        "status": "ok",
+        "service": "Proplens AI Backend",
+        "api": "/api/",
+        "docs": "/api/docs"
+    })
+
+
 urlpatterns = [
+    path('', health_check, name='health_check'),
     path('admin/', admin.site.urls),
     path('api/', api.urls),
 ]
