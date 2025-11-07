@@ -142,10 +142,14 @@ else:
     ]
 
 # Allow all origins in development, restrict in production
+# TEMPORARY: Allow all origins if CORS_ALLOWED_ORIGINS is not set (for easier debugging)
+# TODO: Set CORS_ALLOWED_ORIGINS in Render with your Vercel URL for production
 if DEBUG:
     CORS_ALLOW_ALL_ORIGINS = True
 else:
-    CORS_ALLOW_ALL_ORIGINS = False
+    # If CORS_ALLOWED_ORIGINS is not configured, allow all (temporary for debugging)
+    # Set CORS_ALLOWED_ORIGINS in Render to restrict to specific domains
+    CORS_ALLOW_ALL_ORIGINS = not bool(CORS_ALLOWED_ORIGINS_ENV)
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_METHODS = ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH']
