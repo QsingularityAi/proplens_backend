@@ -6,7 +6,7 @@ services:
     region: oregon
     plan: free
     buildCommand: uv sync --no-dev && uv run python manage.py migrate
-    startCommand: uv run gunicorn proplens_ai.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --timeout 120
+    startCommand: .venv/bin/gunicorn proplens_ai.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --timeout 120
     envVars:
       - key: SECRET_KEY
         generateValue: true
