@@ -6,7 +6,7 @@ djangorestframework==3.14.0
 
 # Database
 psycopg2-binary==2.9.9
-sqlite3
+# sqlite3 is part of Python's standard library, no need to install
 
 # LangGraph and LangChain
 langgraph==0.0.40
